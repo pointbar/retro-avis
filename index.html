@@ -51,28 +51,126 @@
 </ul>
 
 <form>
-  <p>De fonctionner par sprint ?
+  <p>Fonctionner par sprint ?
     <ra-dios name=sprint></ra-dios>
   </p>
 
-  <p>D'avoir un backlog ?
+  <p>Avoir un backlog ?
     <ra-dios name=backlog></ra-dios>
   </p>
 
-  <p>D'avoir des revues de code ?
-    <ra-dios name=revue-de-code></ra-dios>
+  <p>Avoir des revues de code ?
+    <ra-dios name=code-review></ra-dios>
   </p>
 
-  <p>D'avoir un·e scrumMaster ?
+  <p>Avoir des tests fonctionnels ou/et unitaires ?
+    <ra-dios name=functional-test></ra-dios>
+  </p>
+
+  <p>Avoir un plan d'itération ?
+    <ra-dios name=release-plan></ra-dios>
+  </p>
+
+  <p>Utiliser ESLint, prettify ?
+    <ra-dios name=linter></ra-dios>
+  </p>
+
+  <p>Avoir un·e scrumMaster ?
     <ra-dios name=scrumMaster></ra-dios>
   </p>
 
-  <p>D'avoir un·e Product Owner ?
+  <p>Avoir un environnement de préprod ?
+    <ra-dios name=preprod></ra-dios>
+  </p>
+
+  <p>Utiliser des Users Stories pour exprimer le besoin ?
+    <ra-dios name=US></ra-dios>
+  </p>
+
+  <p>Avoir un·e Product Owner ?
     <ra-dios name=PO></ra-dios>
+  </p>
+
+  <p>Impliquer des utilisateurs pour les tests ?
+    <ra-dios name=user-test></ra-dios>
+  </p>
+
+  <p>Utiliser GitHub ?
+    <ra-dios name=github></ra-dios>
+  </p>
+
+  <p>Ouvrir des PR avant de développer la fonctionnalité ?
+    <ra-dios name=PR></ra-dios>
+  </p>
+
+  <p>Avoir un DoD ?
+    <ra-dios name=dod></ra-dios>
+  </p>
+
+  <p>Coder en cherchant la consistance, l'expressivité et respecter les standards ?
+    <ra-dios name=coding-standard></ra-dios>
+  </p>
+
+  <p>Avoir un plan documentaire ?
+    <ra-dios name=plan-doc></ra-dios>
+  </p>
+
+  <p>Avoir un objectif pour le sprint ?
+    <ra-dios name=objectif></ra-dios>
+  </p>
+
+  <p>Avoir un prélude consistant (sprint#0) ?
+    <ra-dios name=sprint0></ra-dios>
+  </p>
+
+  <p>Les réunions de plannifications ?
+    <ra-dios name=plannif></ra-dios>
+  </p>
+
+  <p>Faire des revues/démos ?
+    <ra-dios name=review></ra-dios>
+  </p>
+
+  <p>Développer une US à la fois ?
+    <ra-dios name=swarm></ra-dios>
+  </p>
+
+  <p>Les sessions de pair-programming ?
+    <ra-dios name=pairprog></ra-dios>
+  </p>
+
+  <p>Utiliser Github comme sprint-backlog ?
+    <ra-dios name=sprint-backlog></ra-dios>
+  </p>
+
+  <p>Avoir des réunions d'affinage ?
+    <ra-dios name=grooming></ra-dios>
+  </p>
+
+  <p>Faire des quotidiennes ?
+    <ra-dios name=daily></ra-dios>
+  </p>
+
+  <p>Faire des rétrospectives ?
+    <ra-dios name=retro></ra-dios>
+  </p>
+
+  <p>S'appliquer à réaliser les actions des rétros ?
+    <ra-dios name=actions></ra-dios>
   </p>
 
   <input type=submit value=envoyer>
 </form>
+
+<ul>
+  Légende des notations :
+  <li>0 - plombant</li>
+  <li>1 - gaspillage</li>
+  <li>2 - dispensable</li>
+  <li>3 - bien pratique</li>
+  <li>4 - indispensable</li>
+  <li>5 - enthousiasmant</li>
+</ul>
 
 
 <script>
@@ -130,6 +228,7 @@
     getSubmissions()
       .then(json => {
         publish(json.concat(submission))
+        alert('Merci mec !')
       })
   })
 
