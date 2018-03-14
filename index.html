@@ -37,9 +37,6 @@
 
 </style>
 
-
-<h1>Questions de rétro</h1>
-
 <h2>Comment considérez vous les pratiques suivante ?</h2>
 
 <ul>
@@ -128,14 +125,13 @@
           .map(elt => elt.value)
           .join(' - ')
       }).join(' | ')
-      console.log(JSON.stringify(submission))
     publish(submission)
   })
 
   function publish(submission) {
     fetch('https://api.myjson.com/bins/18q8cl', {
       method: 'PUT',
-      body: JSON.stringify(submission),
+      body: {"response": JSON.stringify(submission)},
       headers: {
         'Content-Type': 'application/json'
       }
