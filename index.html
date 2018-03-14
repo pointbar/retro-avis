@@ -1,0 +1,79 @@
+<meta charset=UTF-8>
+
+<style>
+  label {
+    background: red;
+  }
+  label:before {
+    content: "\00BB";
+    margin-right: 6px;
+}
+</style>
+
+
+<h1>Questions de rétro</h1>
+<ul>
+  <li>0 - plombant</li>
+  <li>1 - gaspillage</li>
+  <li>2 - dispensable</li>
+  <li>3 - utile</li>
+  <li>4 - nécessaire</li>
+  <li>5 - enthousiasmant</li>
+  <em>(de gauche à droite)</em>
+</ul>
+
+<form action=>
+  <p>Un·e scrumMaster ?</p>
+
+  <ra-dios name=scrumMaster></ra-dios>
+</form>
+
+
+<script>
+  class Radios extends HTMLElement {
+    constructor () {
+      super()
+      
+      const shadow = this.attachShadow({mode: 'open'})
+      const radiogroup = document.createElement('radiogroup')
+      const subject = this.getAttribute('name')
+
+      ;['plombant', 'gaspillage', 'dispensable' ,'utile' ,'nécessaire' ,'enthousiasmant'].forEach((title, index) => {
+        const input = document.createElement('input')
+        input.type = 'checkbox'
+        input.value = `${subject}-${title}`
+
+        const label = document.createElement('label')
+        label.for = `${subject}-${title}`
+        label.textContent = index
+
+        const style = document.createElement('style')
+        
+        style.textContent = `
+          label {
+            margin-left: .3em;
+          }
+          label:after {
+            content: ":";
+          }
+        `
+
+        radiogroup.append(style)
+        radiogroup.append(label)
+        radiogroup.append(input)
+      })
+      shadow.append(radiogroup)
+    }
+  }
+
+  customElements.define('ra-dios', Radios)
+
+
+  fetch('https://api.myjson.com/bins/18q8cl', {
+    method: 'PUT',
+    body: JSON.stringify("subscribers"),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+</script>
