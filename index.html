@@ -29,7 +29,7 @@
     font-size: 1em;
     background:#ffb273;
     color:#555;
-    cursor: pointer;
+    cursor: pointer;  
     border-radius: .1em;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 3px #999;
@@ -126,17 +126,25 @@
           .filter(input => input.checked)
           .map(elt => elt.value)
           .join(' - ')
-      }).join(' | ')
-    publish(submission)
+      })
+    getSubmissions()
+      .then(json => {
+        publish(json.concat(submission))
+      })
   })
 
-  function publish(submission) {
+  function publish(submissions) {
     fetch('https://api.myjson.com/bins/18q8cl', {
       method: 'PUT',
-      body: {"response": JSON.stringify(submission)},
+      body: JSON.stringify(submissions),
       headers: {
         'Content-Type': 'application/json'
       }
     })
+  }
+
+  function getSubmissions() {
+    return fetch('https://api.myjson.com/bins/18q8cl')
+      .then(response => response.json())
   }
 </script>
