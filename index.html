@@ -1,31 +1,79 @@
 <meta charset=UTF-8>
 
 <style>
-  label {
-    background: red;
+  body {
+    background: #fa0;
+    font-family: arial;
+    margin: 5em;
+    color: rgb(53, 36, 3);
   }
-  label:before {
-    content: "\00BB";
-    margin-right: 6px;
-}
+  ul {
+    list-style: none;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    padding: .1em;
+    padding-left: 1em;
+  }
+  p {
+    border-top: 1px grey solid;
+    padding-top: 1em;
+    font-size: 1.2em;
+  }
+  input[type=submit] {
+    padding: .5em 0 .5em 0;
+    margin: 2em 5em;
+    width: 5em;
+    font-size: 1em;
+    background:#ffb273;
+    color:#555;
+    border-radius: .1em;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px #999;
+    text-align: center;
+  }
+
 </style>
 
 
 <h1>Questions de rétro</h1>
+
+<h2>Comment considérez vous les pratiques suivante ?</h2>
+
 <ul>
+  Légende des notations :
   <li>0 - plombant</li>
   <li>1 - gaspillage</li>
   <li>2 - dispensable</li>
-  <li>3 - utile</li>
-  <li>4 - nécessaire</li>
+  <li>3 - bien pratique</li>
+  <li>4 - indispensable</li>
   <li>5 - enthousiasmant</li>
-  <em>(de gauche à droite)</em>
 </ul>
 
-<form action=>
-  <p>Un·e scrumMaster ?</p>
+<form>
+  <p>De fonctionner par sprint ?
+    <ra-dios name=sprint></ra-dios>
+  </p>
 
-  <ra-dios name=scrumMaster></ra-dios>
+  <p>D'avoir un backlog ?
+    <ra-dios name=backlog></ra-dios>
+  </p>
+
+  <p>D'avoir des revues de code ?
+    <ra-dios name=revue-de-code></ra-dios>
+  </p>
+
+  <p>D'avoir un·e scrumMaster ?
+    <ra-dios name=scrumMaster></ra-dios>
+  </p>
+
+  <p>D'avoir un·e Product Owner ?
+    <ra-dios name=PO></ra-dios>
+  </p>
+
+  <input type=submit value=envoyer>
 </form>
 
 
@@ -52,6 +100,7 @@
         style.textContent = `
           label {
             margin-left: .3em;
+            font-size: .8em;
           }
           label:after {
             content: ":";
@@ -68,12 +117,28 @@
 
   customElements.define('ra-dios', Radios)
 
-
-  fetch('https://api.myjson.com/bins/18q8cl', {
-    method: 'PUT',
-    body: JSON.stringify("subscribers"),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+  const form = document.querySelector('form')
+  form.addEventListener('submit', evt => {
+    const raDios = document.querySelectorAll('ra-dios')
+    const submission = Array.from(raDios)
+      .map(raDio => {
+        const inputs = raDio.shadowRoot.querySelectorAll('input')
+        return Array.from(inputs)
+          .filter(input => input.checked)
+          .map(elt => elt.value)
+          .join(' - ')
+      }).join(' | ')
+      console.log(JSON.stringify(submission))
+    publish(submission)
   })
+
+  function publish(submission) {
+    fetch('https://api.myjson.com/bins/18q8cl', {
+      method: 'PUT',
+      body: JSON.stringify(submission),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 </script>
